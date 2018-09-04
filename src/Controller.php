@@ -5,29 +5,29 @@ namespace App\Framework;
 
 abstract class Controller
 {
+    /**
+     * @return mixed
+     */
+    abstract protected function index();
 
-    public function index()
-    {
+    /**
+     * @return mixed
+     */
+    abstract public function show();
 
-    }
+    /**
+     * @return mixed
+     */
+    abstract public function create();
 
-    public function show()
-    {
+    /**
+     * @return mixed
+     */
+    abstract public function update();
 
-    }
+    /**
+     * @return mixed
+     */
+    abstract public function delete();
 
-    public function create()
-    {
-
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function delete()
-    {
-
-    }
 }
