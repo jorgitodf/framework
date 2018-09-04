@@ -5,7 +5,7 @@ namespace App\Framework;
 
 abstract class Controller
 {
-    
+
     public function index()
     {
 
