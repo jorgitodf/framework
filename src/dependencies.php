@@ -28,3 +28,8 @@ $container['db'] = function($c) {
 };
 $container['db'];
 
+$container['UserController'] = function($c) {
+    return new \App\Controllers\UserController;
+};
+
+

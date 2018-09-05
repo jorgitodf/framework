@@ -4,15 +4,30 @@ namespace App\Controllers;
 
 use App\Framework\Controller;
 
+
 class UserController extends Controller
 {
+    protected $container;
+
+    /**
+     * UserController constructor.
+     * @param $container
+     */
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * @return mixed
      */
-    protected function index()
+    public function index($request, $response, $args)
     {
-        // TODO: Implement index() method.
+        //$this->view->render($response, 'index.twig');
+        //$resp = $this->container->get('response');
+        //return 'Olá do Index User Controller';
+
+        return $this->renderer->render($response, '../templates/index.phtml', $args);
     }
 
     /**
@@ -26,7 +41,7 @@ class UserController extends Controller
     /**
      * @return mixed
      */
-    public function create()
+    public function create($request, $response, $args)
     {
         // TODO: Implement create() method.
     }
