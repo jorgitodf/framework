@@ -4,9 +4,9 @@
 $container = $app->getContainer();
 
 // view renderer
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    return new Slim\Views\PhpRenderer($settings['template_path']);
+$container['view'] = function($c) {
+    $settings = $c->get('settings');
+    return new Slim\Views\Twig($settings['view']['template_path']);
 };
 
 // monolog
@@ -29,7 +29,7 @@ $container['db'] = function($c) {
 $container['db'];
 
 $container['UserController'] = function($c) {
-    return new \App\Controllers\UserController;
+    return new \App\Controllers\UserController($c->get('view'));
 };
 
 

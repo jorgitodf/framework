@@ -15,4 +15,5 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 */
 
 $app->get('/', 'UserController:index');
+$app->get('/home', 'UserController:home');
 

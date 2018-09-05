@@ -3,31 +3,35 @@
 namespace App\Controllers;
 
 use App\Framework\Controller;
+use Slim\Views\Twig;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 
 class UserController extends Controller
 {
-    protected $container;
+    private $view;
 
     /**
      * UserController constructor.
-     * @param $container
+     * @param $view
      */
-    public function __construct($container)
+    public function __construct(Twig $view)
     {
-        $this->container = $container;
+        $this->view = $view;
+    }
+
+    public function index()
+    {
+        return $this->view->render('layout.twig');
     }
 
     /**
      * @return mixed
      */
-    public function index($request, $response, $args)
+    public function home(Request $request, Response $response, $args)
     {
-        //$this->view->render($response, 'index.twig');
-        //$resp = $this->container->get('response');
-        //return 'Olá do Index User Controller';
-
-        return $this->renderer->render($response, '../templates/index.phtml', $args);
+        return $this->view->render($response, 'home.twig');
     }
 
     /**
@@ -41,7 +45,7 @@ class UserController extends Controller
     /**
      * @return mixed
      */
-    public function create($request, $response, $args)
+    public function create()
     {
         // TODO: Implement create() method.
     }

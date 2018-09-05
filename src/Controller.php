@@ -8,7 +8,7 @@ abstract class Controller
     /**
      * @return mixed
      */
-    abstract public function index($request, $response, $args);
+    abstract public function index();
 
     /**
      * @return mixed
@@ -18,7 +18,7 @@ abstract class Controller
     /**
      * @return mixed
      */
-    abstract public function create($request, $response, $args);
+    abstract public function create();
 
     /**
      * @return mixed
