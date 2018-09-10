@@ -28,8 +28,9 @@ $container['db'] = function($c) {
 };
 $container['db'];
 
-$container['UserController'] = function($c) {
-    return new \App\Controllers\UserController($c->get('view'));
+// Controllers
+$container['HomeController'] = function($c) {
+    return new \App\Controllers\HomeController($c->get('view'));
 };
 
 

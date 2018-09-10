@@ -8,12 +8,12 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 
-class UserController extends Controller
+class HomeController extends Controller
 {
     private $view;
 
     /**
-     * UserController constructor.
+     * HomeController constructor.
      * @param $view
      */
     public function __construct(Twig $view)
@@ -21,23 +21,19 @@ class UserController extends Controller
         $this->view = $view;
     }
 
-    public function index()
+
+    /**
+     * @return mixed
+     */
+    public function index(Request $request, Response $response, array $args)
     {
-        return $this->view->render('layout.twig');
+        return $this->view->render($response, 'home/index.twig');
     }
 
     /**
      * @return mixed
      */
-    public function home(Request $request, Response $response, $args)
-    {
-        return $this->view->render($response, 'home.twig');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function show()
+    public function show(Request $request, Response $response)
     {
         // TODO: Implement show() method.
     }
@@ -45,7 +41,7 @@ class UserController extends Controller
     /**
      * @return mixed
      */
-    public function create()
+    public function create(Request $request, Response $response)
     {
         // TODO: Implement create() method.
     }
@@ -53,7 +49,7 @@ class UserController extends Controller
     /**
      * @return mixed
      */
-    public function update()
+    public function update(Request $request, Response $response)
     {
         // TODO: Implement update() method.
     }
@@ -61,7 +57,7 @@ class UserController extends Controller
     /**
      * @return mixed
      */
-    public function delete()
+    public function delete(Request $request, Response $response)
     {
         // TODO: Implement delete() method.
     }
