@@ -9,17 +9,17 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Login</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="/auth/login">
+                        <form class="form-horizontal" role="form" onsubmit="logar()" id="form-login" method="POST" action="/auth/token">
                             <div class="form-group">
                                 <label for="email" class="col-md-3 control-label">E-Mail</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="" placeholder="Informe seu E-mail" required autofocus>
+                                    <input id="email" type="email" class="form-control" name="email" value="" placeholder="Informe seu E-mail" autofocus>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="col-md-3 control-label">Password</label>
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" placeholder="Informe sua Senha" required>
+                                    <input id="password" type="password" class="form-control" name="password" placeholder="Informe sua Senha" >
                                 </div>
                             </div>
                             <div class="form-group">
@@ -43,6 +43,31 @@
         }
 
     </style>
+
+    <script>
+        function logar() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let url = $("#form-login").attr("action");    
+            let data = {
+                email: email,
+                password: password
+            }
+
+            //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+            axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+            axios.post(url, JSON.stringify(data))
+                .then(function(response) {
+                    console.log(response.data);
+                })
+                .catch(function(error) {
+                    console.log(error.data);
+                })
+
+            event.preventDefault();
+        }
+    </script>
+
 {% endblock %}
 
 

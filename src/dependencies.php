@@ -1,6 +1,8 @@
 <?php
 // DIC configuration
 
+use App\Framework\Exceptions\NotFoundHandler;
+
 $container = $app->getContainer();
 
 // view renderer
@@ -23,7 +25,7 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// eloquent
+// BD Eloquent
 $container['db'] = function($c) {
     $manager = new \Illuminate\Database\Capsule\Manager;
     $manager->addConnection($c->get('settings')['db']);
@@ -33,24 +35,19 @@ $container['db'] = function($c) {
 };
 $container['db'];
 
-$c['notFoundHandler'] = function ($c) {
-    return function ($request, $response) use ($c) {
-        return $c['response']
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'application/json')
-            ->withHeader('Access-Control-Allow-Origin', '*')
-            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-            ->write('Page not found');
-    };
+// Erros
+$container['notFoundHandler'] = function ($c) { 
+    return new NotFoundHandler($c->get('view'), function ($request, $response) use ($c) { 
+        return $c['response']->withStatus(404); 
+    }); 
 };
 
 // Controllers
 $container['HomeController'] = function($c) {
     return new \App\Controllers\HomeController($c->get('view'));
 };
-$container['LoginController'] = function($c) {
-    return new \App\Controllers\Auth\LoginController($c->get('view'));
+$container['AuthController'] = function($c) {
+    return new \App\Controllers\Auth\AuthController($c->get('view'));
 };
 
 

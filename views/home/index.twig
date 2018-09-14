@@ -1,9 +1,17 @@
 {% extends "templates/layout.twig" %}
 
-{% block title %}Página Principal{% endblock %}
+{% block title %}Página Home{% endblock %}
 
 {% block content %}
-    <div class="page-header">
-        <h3>{{ block('title') }}</h3>
+    <div class="container" id="div-principal-home">
+        <div class="row col-md-12">
+            <h2>{{ block('title') }}</h2>
+        </div>
     </div>
+
+    <style>
+        #div-principal-home {
+            margin-top: 6%;
+        }
+    </style>
 {% endblock %}
