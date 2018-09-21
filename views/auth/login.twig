@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Login</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" onsubmit="logar()" id="form-login" method="POST" action="/auth/token">
+                        <form class="form-horizontal" role="form" method="POST" action="/auth/token" id="formLogin">
                             <div class="form-group">
                                 <label for="email" class="col-md-3 control-label">E-Mail</label>
                                 <div class="col-md-6">
@@ -41,32 +41,7 @@
         #div-principal-login {
             margin-top: 9%;
         }
-
     </style>
-
-    <script>
-        function logar() {
-            let email = document.getElementById('email').value;
-            let password = document.getElementById('password').value;
-            let url = $("#form-login").attr("action");    
-            let data = {
-                email: email,
-                password: password
-            }
-
-            //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-            axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-            axios.post(url, JSON.stringify(data))
-                .then(function(response) {
-                    console.log(response.data);
-                })
-                .catch(function(error) {
-                    console.log(error.data);
-                })
-
-            event.preventDefault();
-        }
-    </script>
 
 {% endblock %}
 
