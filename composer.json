@@ -26,7 +26,10 @@
             "App\\Framework\\": "src",
             "App\\": "app",
             "tuupola/slim-jwt-auth\\": "src"
-        }
+        },
+        "files" : [
+            "app/Helpers/helpers.php"
+        ]
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0",

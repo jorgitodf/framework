@@ -13,30 +13,33 @@
                             <div class="form-group">
                                 <label for="name" class="col-md-3 control-label">Nome</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="" placeholder="Informe o seu Nome Completo" autofocus>
+                                    <input id="name" type="text" class="form-control white remove-color-name" name="name" value="" placeholder="Informe o seu Nome Completo" autofocus>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="col-md-3 control-label">E-Mail</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="" placeholder="Informe seu E-mail" autofocus>
+                                    <input id="email" type="email" class="form-control white remove-color-email" name="email" value="" placeholder="Informe seu E-mail" autofocus>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="password" class="col-md-3 control-label">Password</label>
+                                <label for="password" class="col-md-3 control-label">Senha</label>
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" placeholder="Informe sua Senha" >
+                                    <input id="password" type="password" class="form-control white remove-color-password" name="password" placeholder="Informe sua Senha" >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="re-password" class="col-md-3 control-label">Password</label>
+                                <label for="re-password" class="col-md-3 control-label">Confirme a Senha</label>
                                 <div class="col-md-6">
-                                    <input id="re-password" type="password" class="form-control" name="re-password" placeholder="Repita a sua Senha" >
+                                    <input id="re_password" type="password" class="form-control white remove-color-re-password" name="re_password" placeholder="Repita a sua Senha" >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-3">
+                                <div class="col-md-2 col-md-offset-3" id="div-botao-cadastro-usuario">
                                     <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                </div>
+                                <div class="col-md-4" id="div-success-cadastro-usuario">
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -51,30 +54,6 @@
         </div>
     </div>
     </div>
-
-    <style>
-        #formRegister {
-            height: 170px;
-        }
-        #div-principal-register {
-            margin-top: 9%;
-        }
-        #div-error-login {
-            display: none;
-        }
-        #span-error-login {
-            padding: 5px;
-            width: 340px;
-            position: absolute;
-        }
-        .msgError {
-            color: red;
-            font-weight: bold;
-            font-size: 12px;
-            text-align: center;
-        }
-
-    </style>
 
 {% endblock %}
 

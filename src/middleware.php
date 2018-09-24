@@ -2,7 +2,7 @@
 // Application middleware
 
 // e.g: $app->add(new \Slim\Csrf\
-
+/*
 $app->add(new \Tuupola\Middleware\JwtAuthentication([
     "regex" => "/(.*)/",
     "header" => "Authorization",
@@ -11,6 +11,7 @@ $app->add(new \Tuupola\Middleware\JwtAuthentication([
     "realm" => "Protected",
     "secret" => "SECRET_KEY"
 ]));
+*/
 
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);

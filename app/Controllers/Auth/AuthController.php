@@ -6,10 +6,12 @@ use Slim\Views\Twig;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Firebase\JWT\JWT;
+use App\Validations\ValidationUser;
 
 class AuthController
 {
     private $view;
+    private $validations;
 
     /**
      * AuthController constructor.
@@ -18,6 +20,7 @@ class AuthController
     public function __construct(Twig $view)
     {
         $this->view = $view;
+        $this->validations = new ValidationUser();
     }
 
 
@@ -78,25 +81,20 @@ class AuthController
 
     public function create(Request $request, Response $response, array $args)
     {
+        $name = filter_input(INPUT_POST, 'name');
         $email = filter_input(INPUT_POST, 'email');
-        //var_dump($request->getParam('email'));exit;
-        var_dump($email);exit;
-        /*
-        $data = [
-            'email' => filter_input(INPUT_POST, 'email'),
-            'password' => filter_input(INPUT_POST, 'password')
-        ];
-        var_dump($data);exit;
-        $email = 'jspaiva.1977@gmail.com';
+        $password = filter_input(INPUT_POST, 'password');
+        $re_password = filter_input(INPUT_POST, 're_password');
 
-        if ($data['email'] == $email) {
-            $success = 'Dados válidos';
-            return $response->withJson($success, 201);
+        $data = ['name' => $name, 'email' => $email, 'password' => $password, 're-password' => $re_password];
+
+        $error = $this->validations->validateUser($data);
+
+        if (!$error) {
+            return $response->withJson(['base_url' => base_url(), 'success' => 'Usuário Cadastrado com Sucesso!'],201);
         } else {
-            $error = 'Dados inválidos';
-            return $response->withJson($error, 500);
+            return $response->withJson(['error' => $error], 500);
         }
-        */
     }
 
 }
