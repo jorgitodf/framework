@@ -65,10 +65,38 @@ class AuthController
             $token = JWT::encode($data, $key);
             return $response->withJson(['token' => $token], 201);
         } else {
+            $error = 'E-mail não cadastrado!';
+            return $response->withJson(['error' => $error], 500);
+        }
+
+    }
+
+    public function newRegister(Request $request, Response $response, array $args)
+    {
+        return $this->view->render($response, 'auth/register.twig');
+    }
+
+    public function create(Request $request, Response $response, array $args)
+    {
+        $email = filter_input(INPUT_POST, 'email');
+        //var_dump($request->getParam('email'));exit;
+        var_dump($email);exit;
+        /*
+        $data = [
+            'email' => filter_input(INPUT_POST, 'email'),
+            'password' => filter_input(INPUT_POST, 'password')
+        ];
+        var_dump($data);exit;
+        $email = 'jspaiva.1977@gmail.com';
+
+        if ($data['email'] == $email) {
+            $success = 'Dados válidos';
+            return $response->withJson($success, 201);
+        } else {
             $error = 'Dados inválidos';
             return $response->withJson($error, 500);
         }
-
+        */
     }
 
 }
