@@ -9,4 +9,12 @@ class User extends Eloquent
     protected $table = 'users';
     protected $fillable = ['name', 'email', 'password'];
     protected $hidden = ['password'];
+
+    // MUTATORS
+    public function setPasswordAttribute($value)
+    {
+        if (!empty($value)) {
+            $this->attributes['password'] = password_hash($value, PASSWORD_DEFAULT);
+        }
+    }
 }

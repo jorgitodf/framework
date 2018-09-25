@@ -6,11 +6,13 @@ use App\Framework\Controller;
 use Slim\Views\Twig;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use App\Models\User;
 
 
 class HomeController extends Controller
 {
     private $view;
+    private $model_users;
 
     /**
      * HomeController constructor.
@@ -19,6 +21,7 @@ class HomeController extends Controller
     public function __construct(Twig $view)
     {
         $this->view = $view;
+        $this->model_users = new User();
     }
 
 

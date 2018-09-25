@@ -7,11 +7,13 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Firebase\JWT\JWT;
 use App\Validations\ValidationUser;
+use App\Models\User;
 
 class AuthController
 {
     private $view;
     private $validations;
+    private $model_user;
 
     /**
      * AuthController constructor.
@@ -21,6 +23,7 @@ class AuthController
     {
         $this->view = $view;
         $this->validations = new ValidationUser();
+        $this->model_user = new User();
     }
 
 
@@ -54,22 +57,20 @@ class AuthController
     {
         $email = filter_input(INPUT_POST, 'email');
         $password = filter_input(INPUT_POST, 'password');
-        
-        $hash = password_hash($password, \PASSWORD_DEFAULT);
-        $emailUser = 'jspaiva.1977@gmail.com';
 
-        if ($email == $emailUser) {
+        $user = $this->model_user->where('email', $email)->first();
+
+        if (!is_null($user) && password_verify($password, $user->password)) {
             $key = 'SECRET_KEY';
             $data = [
                 'iat' => time(),
                 'exp' => time() + (60 * 60 * 24 * 360),
-                'user' => $emailUser
+                'user' => $user->email
             ];
             $token = JWT::encode($data, $key);
-            return $response->withJson(['token' => $token], 201);
+            return $response->withJson(['base_url' => base_url(), 'token' => $token], 201);
         } else {
-            $error = 'E-mail não cadastrado!';
-            return $response->withJson(['error' => $error], 500);
+            return $response->withJson(['error' => 'E-mail não cadastrado!'], 401);
         }
 
     }
@@ -81,16 +82,19 @@ class AuthController
 
     public function create(Request $request, Response $response, array $args)
     {
-        $name = filter_input(INPUT_POST, 'name');
-        $email = filter_input(INPUT_POST, 'email');
-        $password = filter_input(INPUT_POST, 'password');
-        $re_password = filter_input(INPUT_POST, 're_password');
-
-        $data = ['name' => $name, 'email' => $email, 'password' => $password, 're-password' => $re_password];
+        $data = [
+            'name' => filter_input(INPUT_POST, 'name'),
+            'email' => filter_input(INPUT_POST, 'email'),
+            'password' => filter_input(INPUT_POST, 'password'),
+            're-password' => filter_input(INPUT_POST, 're_password')
+        ];
 
         $error = $this->validations->validateUser($data);
 
+        unset($data['re-password']);
+
         if (!$error) {
+            $this->model_user->create($data);
             return $response->withJson(['base_url' => base_url(), 'success' => 'Usuário Cadastrado com Sucesso!'],201);
         } else {
             return $response->withJson(['error' => $error], 500);

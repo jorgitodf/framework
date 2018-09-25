@@ -49,19 +49,30 @@ $(document).ready(function () {
             $(".msgError").css("display", "none");
 
             e.preventDefault();
+
+            axios.interceptors.response.use((response) => {
+                window.localStorage.setItem('token', response.data.token);
+                return response;
+            });
+
+            axios.defaults.headers.common['Authorization'] = window.localStorage.getItem('token');
+
             axios.post(url, simpleQueryString.stringify(data))
                 .then(function(response) {
-                    console.log(response.data);
+                    if (response.status == 201) {
+                        axios.defaults.headers.common['Authorization'] = response.data.token;
+                        window.location.replace(response.data['base_url']);
+                    }
                 })
                 .catch(function(error) {
-                    if (error.response.status == 500) {
+                    if (error.response.status == 401) {
                         $("#div-error-login").html("<span class='alert alert-danger msgError' id='span-error-login'>"+ error.response.data.error +"</span>");
                         $("#div-error-login").css("display", "block");
                     }
                 })
+
         });
     });
-
 
     // CADASTRO NOVO USUÁRIO
     //cor fundo input
@@ -123,6 +134,10 @@ $(document).ready(function () {
 
     function redirectPageLogin(base_url) {
         return window.location.replace(base_url+"/auth/login");
+    }
+
+    function redirectPageHome(base_url) {
+        return window.location.replace(base_url+"/");
     }
 
 });
